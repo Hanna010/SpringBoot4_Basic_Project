@@ -11,7 +11,6 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
-import java.util.Properties;
 import java.util.function.Consumer;
 
 @Component
@@ -36,43 +35,38 @@ public class MyRunner implements ApplicationRunner {
 
     private Logger logger = LoggerFactory.getLogger(MyRunner.class);
 
-
-
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        logger.info("Logger 구현체 클래스 명{}", logger.getClass().getName());
-        logger.debug("My run() 호출됨!");
-        logger.debug("Application Name ="+applicationName);
+        logger.info("Logger 구현체 클래스명 {}", logger.getClass().getName());
+        logger.debug("MyRunner run() 호출됨!!");
+        logger.debug("Application Name = {}", applicationName);
 
         //Consumer 인터페이스를 Anonymous Inner Class 로 표현
         args.getOptionNames().forEach(new Consumer<String>() {
             @Override
             public void accept(String s) {
-                System.out.println("arg name =" + s);
+                System.out.println("arg name = " + s);
             }
         });
 
-
-        //org.getOptionNames() 메서드의 리턴 타입 Set<String>
-        //Iteroble 의 forEach(Consumer)
-        //Consumer의 추상 메서드 void accept(T t)
+        // args.getOptionNames() 메서드의 리턴타입 Set<String>
+        //Iterable 의 forEach(Consumer)
+        //Consumer의 추상메서드 void accept(T t)
         //Consumer 인터페이스를 람다식으로 표현
-        //인터페이스 중 추상메서드를 한개만 있는 것만 람다식으로 표현 가능.
-        args.getOptionNames().forEach(name -> System.out.println("name = " + name));
+        args.getOptionNames().forEach(name -> System.out.println(name));
 
         //Consumer 인터페이스를 Method Reference 로 표현
         args.getOptionNames().forEach(System.out::println);
 
-        logger.debug("${myboot.name} = {}" , name);
-        logger.debug("${myboot.age} = {}" , age);
-        logger.debug("${myboot.fullName} = {}" , environment.getProperty("myboot.fullName"));
+        logger.debug("${myboot.name} = {}", name);
+        logger.debug("${myboot.age} = {}", age);
+        logger.debug("${myboot.fullName} = {}", environment.getProperty("myboot.fullName"));
 
-        logger.info("MyBootProperties getName = {}" , properties.getName());
-        logger.info("MyBootProperties getAge = {}" , properties.getAge());
-        logger.info("MyBootProperties getFullName = {}" , properties.getFullName());
+        logger.info("MyBootProperties getName() = {}", properties.getName());
+        logger.info("MyBootProperties getAge() = {}", properties.getAge());
+        logger.info("MyBootProperties getFullName() = {}", properties.getFullName());
 
-        logger.debug("현재 활성화 된 CustomVO = " + customVO);
-
+        logger.debug("현재 활성화 되어있는 CustomVO= {}", customVO);
 
 
     }
