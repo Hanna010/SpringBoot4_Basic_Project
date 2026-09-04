@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
-//@Transactional
+@Transactional
 class CustomerRepositoryTest {
     @Autowired
     CustomerRepository customerRepository;
@@ -36,10 +36,13 @@ class CustomerRepositoryTest {
     //2. Customer 조회
     @Test
     void testFindBy() {
-        Optional<Customer> optionalCustomer = customerRepository.findById(1L);
+        Optional<Customer> optionalCustomer = customerRepository.findById(1L); //id = 1 인 걸 가져오겠다.
         if(optionalCustomer.isPresent()){
             Customer existCustomer = optionalCustomer.get();
             assertThat(existCustomer.getId()).isEqualTo(1L);
+
+            //ifPresent(Consumer) Consumer의 추상메서드 void accept(T t)
+            optionalCustomer.ifPresent(customer -> System.out.println(customer.getCustomerName()));
         }
     }
 

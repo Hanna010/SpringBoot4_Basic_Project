@@ -13,7 +13,8 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @Getter @Setter
 public class Customer {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) //GeneratedValue : 프라이머리 키의 값을 자동 생성하기 위해.
+    //IDENTITY는 id 의 auto_increment를 해준다.
     private Long id;
 
     @Column(nullable = false, unique = true)
