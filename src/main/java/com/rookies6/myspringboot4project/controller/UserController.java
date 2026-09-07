@@ -18,20 +18,21 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository; //파이널인데 초기화 안해서.
+    private final UserRepository userRepository;
 
     @GetMapping("/thymeleaf")
     public String leaf(Model model) {
-        model.addAttribute("name","스프링부트");
+        model.addAttribute("name", "스프링부트");
         return "leaf";
     }
+
     /*
-            public ModelAndView(String viewName, String modelName, Object modelObject)
-   */
+        public ModelAndView(String viewName, String modelName, Object modelObject)
+     */
     @GetMapping("/index")
-    public ModelAndView userList(){
+    public ModelAndView userList() {
         List<User> userList = userRepository.findAll();
-        return new ModelAndView("index","users",userList);
+        return new ModelAndView("index", "users", userList);
     }
 
     @GetMapping("/signup")
@@ -47,11 +48,11 @@ public class UserController {
             return "add-user";
         }
         userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
+
+//        model.addAttribute("users", userRepository.findAll());
 //        return "index";
         return "redirect:/index";
     }
-
 
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model) {
@@ -60,7 +61,6 @@ public class UserController {
         model.addAttribute("userForm", user);
         return "update-user";
     }
-
 
     @PostMapping("/update/{id}")
     public String updateUser(@PathVariable("id") long id,
@@ -73,5 +73,6 @@ public class UserController {
         userRepository.save(user);
         return "redirect:/index";
     }
+
 
 }

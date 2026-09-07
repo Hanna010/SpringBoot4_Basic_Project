@@ -11,20 +11,20 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
+@Table(name = "users")
 @Getter
 @Setter
-@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    @NotEmpty(message = "Name(이름)은 필수입력 항목입니다.")
+    @NotEmpty(message = "Name(이름)은 필수 입력 항목입니다.")
     private String name;
 
     @Column(unique = true, nullable = false)
-    @NotBlank(message = "Email 주소는 필수입력 항목입니다.")
+    @NotBlank(message = "Email 주소는 필수 입력 항목입니다.")
     @Email
     private String email;
 
